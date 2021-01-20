@@ -1,0 +1,33 @@
+___________________________________________________________________________
+-Adviser es un sistema diseñado para administar las citas entre un alumno
+y un asesor
+
+-Un administrador será el encargado de dar de alta a nuevos alumnos, asesores y 
+modificar citas
+
+-El asesor debe especificar el grado de avance del alumno y se debe especificar
+si es de licenciatura, maestria o doctrorado.
+(nivelEducativo)
+licenciatura	(12)
+maestria	(8)
+doctorado	(9)
+
+-El asesor dara de alta la asesoria(cita) de forma manual y esta aparecerá en el
+sistema del alumno con estatus pendiente. Se pueden tener estatus
+de cancelada una asesoría
+(estatus)
+pendiente	(9)
+activa		(6)
+cancelada	(9)
+finalizada	(10)
+
+-Se tendrá un campo para asistencia a las sesiones
+(asistencia)
+asistió		(7)
+no asistió	(10)
+
+-Crear la tabla de evidencias.
+
+-El sistema proporcionará reportes a alumnos y asesores, con el fin de que los
+involucrados puedan consultar su información y que observaciones se tienen.
+
