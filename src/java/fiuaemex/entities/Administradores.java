@@ -33,7 +33,8 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Administradores.findByPassword", query = "SELECT a FROM Administradores a WHERE a.password = :password")
     , @NamedQuery(name = "Administradores.findByNombre", query = "SELECT a FROM Administradores a WHERE a.nombre = :nombre")
     , @NamedQuery(name = "Administradores.findByPaterno", query = "SELECT a FROM Administradores a WHERE a.paterno = :paterno")
-    , @NamedQuery(name = "Administradores.findByMaterno", query = "SELECT a FROM Administradores a WHERE a.materno = :materno")})
+    , @NamedQuery(name = "Administradores.findByMaterno", query = "SELECT a FROM Administradores a WHERE a.materno = :materno")
+    , @NamedQuery(name = "Administradores.findUser", query = "SELECT a FROM Administradores a WHERE a.correo = :correo AND a.password = :password")})
 public class Administradores implements Serializable {
 
     private static final long serialVersionUID = 1L;

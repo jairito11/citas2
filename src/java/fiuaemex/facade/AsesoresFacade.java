@@ -8,7 +8,9 @@ package fiuaemex.facade;
 import fiuaemex.entities.Asesores;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -29,4 +31,13 @@ public class AsesoresFacade extends AbstractFacade<Asesores> implements Asesores
         super(Asesores.class);
     }
     
+    public Asesores consultarAsesor(String correo, String password){
+        try{
+            Query query = em.createNamedQuery("Asesores.findUser");
+            query = query.setParameter("correo", correo).setParameter("password", password);
+            return (Asesores) query.getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
+    }
 }

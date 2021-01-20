@@ -8,7 +8,9 @@ package fiuaemex.facade;
 import fiuaemex.entities.Administradores;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -27,6 +29,16 @@ public class AdministradoresFacade extends AbstractFacade<Administradores> imple
 
     public AdministradoresFacade() {
         super(Administradores.class);
+    }
+    
+    public Administradores consultarAdministrador(String correo, String password){
+        try{
+            Query query = em.createNamedQuery("Administradores.findUser");
+            query = query.setParameter("correo", correo).setParameter("password", password);
+            return (Administradores) query.getSingleResult();
+        }catch(NoResultException nre){
+            return null;
+        }
     }
     
 }

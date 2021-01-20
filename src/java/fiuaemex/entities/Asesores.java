@@ -38,7 +38,8 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Asesores.findByMaterno", query = "SELECT a FROM Asesores a WHERE a.materno = :materno")
     , @NamedQuery(name = "Asesores.findByEspecialidad", query = "SELECT a FROM Asesores a WHERE a.especialidad = :especialidad")
     , @NamedQuery(name = "Asesores.findByCorreo", query = "SELECT a FROM Asesores a WHERE a.correo = :correo")
-    , @NamedQuery(name = "Asesores.findByPassword", query = "SELECT a FROM Asesores a WHERE a.password = :password")})
+    , @NamedQuery(name = "Asesores.findByPassword", query = "SELECT a FROM Asesores a WHERE a.password = :password")
+    , @NamedQuery(name = "Asesores.findUser", query = "SELECT a FROM Asesores a WHERE a.correo = :correo AND a.password = :password")})
 public class Asesores implements Serializable {
 
     private static final long serialVersionUID = 1L;

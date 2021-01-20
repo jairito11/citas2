@@ -29,5 +29,7 @@ public interface AsesoresFacadeLocal {
     List<Asesores> findRange(int[] range);
 
     int count();
+
+    public Asesores consultarAsesor(String correo, String password);
     
 }
