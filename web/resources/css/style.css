@@ -1,0 +1,6 @@
+body{
+    background: url(#{resource['img/1.jpg']});      
+}
+h1{
+    text-align: center;
+}
