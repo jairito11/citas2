@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <p:panelGrid columns="1">
+                    <p:link outcome="indexAdministrador" value="Home"/>
+                    <p:link outcome="catalogoAlumnos" value="Alumnos"/>
+                    <p:link outcome="catalogoCitas" value="Citas"/>
+                    <p:link outcome="catalogoAdministradores" value="Administradores"/>
+                </p:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Asesores</h1>
+                
+                <h3>Catalogo Asesores</h3>
+                <h:form>
+                    <p:dataTable value="#{catalogoAsesoresBacking.listaAsesores}" var="a" paginator="true" rows="2">
+                        <p:column headerText="Nombre"
+                                  filterBy="#{a.nombre}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Paterno">
+                            <h:outputText value="#{a.paterno}"/>
+                        </p:column>
+                        <p:column headerText="Materno">
+                            <h:outputText value="#{a.materno}"/>
+                        </p:column>
+                        <p:column headerText="Especialidad">
+                            <h:outputText value="#{a.especialidad}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{catalogoAsesoresBacking.seleccionarAsesor(a)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{catalogoAsesoresBacking.eliminar(a)}"/>
+                        </p:column>
+                    </p:dataTable>       
+                </h:form>
+                <h:form>
+                    <p:growl showDetail="true" sticky="true"/>
+                    <p:dialog header="Editar Asesor"
+                              visible="#{catalogoAsesoresBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{catalogoAsesoresBacking.asesor.nombre}"
+                                         placeholder="Ingresa nombre"
+                                         required="true"
+                                         requiredMessage="ingresa nombre"/>
+                            <p:outputLabel value="Paterno"/>
+                            <p:inputText value="#{catalogoAsesoresBacking.asesor.paterno}"
+                                         placeholder="Ingresa el apellido paterno"
+                                         required="true"
+                                         requiredMessage="Ingresa el apellido paterno"/>
+                            <p:outputLabel value="Materno"/>
+                            <p:inputText value="#{catalogoAsesoresBacking.asesor.materno}"
+                                         placeholder="Ingresa el apellido materno"
+                                         required="true"
+                                         requiredMessage="Ingresa el apellido materno"/>
+                            <p:outputLabel value="Especialidad"/>
+                            <p:inputText value="#{catalogoAsesoresBacking.asesor.especialidad}"
+                                         placeholder="Ingresa especialidad"
+                                         required="true"
+                                         requiredMessage="Ingresa especialidad"/>
+                            <p:outputLabel value="Correo"/>
+                            <p:inputText value="#{catalogoAsesoresBacking.asesor.correo}"
+                                         validatorMessage="Ingresa correo valido"
+                                         placeholder="Ingresa correo"
+                                         required="true"
+                                         requiredMessage="Ingresa correo valido">
+                                <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+                            </p:inputText>
+                            <p:outputLabel value="Password"/>
+                            <p:password value="#{catalogoAsesoresBacking.asesor.password}"
+                                        placeholder="Password"
+                                        required="true"
+                                        requiredMessage="Ingresa el password"/>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{catalogoAsesoresBacking.cerrarDialogo}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{catalogoAsesoresBacking.guardar}"/>
+                    </p:dialog>                    
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
