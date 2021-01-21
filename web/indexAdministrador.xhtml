@@ -1,0 +1,213 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <p:panelGrid columns="1">
+                    <p:link outcome="catalogoProfesores" value="Profesores"/>
+                    <p:link outcome="catalogoAlumnos" value="Alumnos"/>
+                    <p:link outcome="catalogoCitas" value="Citas"/>
+                    <p:link outcome="catalogoAdministradores" value="Administradores"/>
+                </p:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Administrador</h1>
+                
+                <h3>Agregar nuevos miembros</h3>
+                    <p:accordionPanel dynamic="true" cache="true">
+                        <p:tab title="Crear nuevo Alumno">
+                            <h:form>
+                                <p:growl showDetail="true" sticky="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Ingresa la matricula"/>
+                                    <p:inputText value="#{administradorBacking.alumno.matricula}"
+                                                 validatorMessage="La matricula debe ser de 5 digitos"
+                                                 placeholder="MATRICULA"
+                                                 required="true"
+                                                 requiredMessage="Ingresa matricula">
+                                        <f:validateRegex pattern="[0-9]{5}"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Ingresa el nombre"/>
+                                    <p:inputText value="#{administradorBacking.alumno.nombre}"
+                                                 placeholder="NOMBRE"
+                                                 required="true"
+                                                 requiredMessage="Ingresa el nombre"/>
+                                    <p:outputLabel value="Ingresa el apellido paterno"/>
+                                    <p:inputText value="#{administradorBacking.alumno.paterno}"
+                                                 placeholder="PATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido paterno"/>
+                                    <p:outputLabel value="Ingresa el apellido materno"/>
+                                    <p:inputText value="#{administradorBacking.alumno.materno}"
+                                                 placeholder="MATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido materno"/>
+                                    <p:outputLabel value="Ingresa el telefono"/>
+                                    <p:inputText value="#{administradorBacking.alumno.telefono}"
+                                                 validatorMessage="El telefono debe ser de 10 digitos"
+                                                 placeholder="TELEFONO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa telefono">
+                                        <f:validateRegex pattern="[0-9]{10}"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Ingresa el correo"/>
+                                    <p:inputText value="#{administradorBacking.alumno.correo}"
+                                                 validatorMessage="Ingresa un formato correcto de correo"
+                                                 placeholder="CORREO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa correo">
+                                        <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+                                    </p:inputText>
+                                    <p:outputLabel value="Ingresa el password"/>
+                                    <p:password value="#{administradorBacking.alumno.password}"
+                                                 placeholder="PASSWORD"
+                                                 required="true"
+                                                 requiredMessage="Ingresa password"/>
+                                    <p:outputLabel value="Ingresa nivel educativo"/>
+                                    <p:selectOneRadio value="#{administradorBacking.alumno.nivelEducativo}"
+                                                      required="true"
+                                                      requiredMessage="Selecciona el nivel educativo">
+                                        <f:selectItem itemLabel="Licenciatura" itemValue="licenciatura" />
+                                        <f:selectItem itemLabel="Maestria" itemValue="maestria" />
+                                        <f:selectItem itemLabel="Doctorado" itemValue="doctorado" />
+                                    </p:selectOneRadio>
+                                    <p:outputLabel value="Ingresa la materia"/>
+                                    <p:selectOneMenu value="#{administradorBacking.materia.id}" style="width: 45%;">
+                                        <f:selectItems value="#{administradorBacking.listaMaterias}" var="mat"
+                                               itemValue="#{mat.id}" itemLabel="#{mat.nombre}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                <h:commandButton value="Guardar"
+                                                 actionListener="#{administradorBacking.nuevoAlumno}"/>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Crear nuevo Profesor">
+                            <h:form>
+                                <p:growl showDetail="true" sticky="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Ingresa la matricula"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el nombre"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el apellido paterno"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el apellido materno"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el telefono"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el correo"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el password"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa nivel educativo"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="############## "/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa la materia"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:tab>
+                        <p:tab title="Agregar otro administrador">
+                            <h:form>
+                                <p:growl showDetail="true" sticky="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Ingresa la matricula"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el nombre"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el apellido paterno"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el apellido materno"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el telefono"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el correo"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa el password"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa nivel educativo"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="############## "/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                    <p:outputLabel value="Ingresa la materia"/>
+                                    <p:inputText value=""
+                                                 placeholder=""
+                                                 required=""
+                                                 requiredMessage=""/>
+                                </p:panelGrid>
+                            </h:form>
+                        </p:tab>
+                    </p:accordionPanel>                
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

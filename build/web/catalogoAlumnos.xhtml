@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <p:panelGrid columns="1">
+                    <p:link outcome="indexAdministrador" value="Home"/>
+                    <p:link outcome="catalogoProfesores" value="Profesores"/>
+                    <p:link outcome="catalogoCitas" value="Citas"/>
+                    <p:link outcome="catalogoAdministradores" value="Administradores"/>
+                </p:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Alumnos</h1>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
