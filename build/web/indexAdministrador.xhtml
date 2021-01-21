@@ -23,7 +23,7 @@
                 <h1>Administrador</h1>
                 
                 <h3>Agregar nuevos miembros</h3>
-                    <p:accordionPanel dynamic="true" cache="true">
+                    <p:accordionPanel dynamic="true" cache="true" activeIndex="null">
                         <p:tab title="Crear nuevo Alumno">
                             <h:form>
                                 <p:growl showDetail="true" sticky="true"/>
@@ -89,119 +89,89 @@
                                 <h:commandButton value="Guardar"
                                                  actionListener="#{administradorBacking.nuevoAlumno}"/>
                             </h:form>
+                            
+                            
                         </p:tab>
-                        <p:tab title="Crear nuevo Profesor">
+                        <p:tab title="Crear nuevo Asesor">
+                            
                             <h:form>
                                 <p:growl showDetail="true" sticky="true"/>
                                 <p:panelGrid columns="2">
-                                    <p:outputLabel value="Ingresa la matricula"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
                                     <p:outputLabel value="Ingresa el nombre"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:inputText value="#{administradorBacking.asesor.nombre}"
+                                                 placeholder="NOMBRE"
+                                                 required="true"
+                                                 requiredMessage="Ingresa nombre"/>
                                     <p:outputLabel value="Ingresa el apellido paterno"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:inputText value="#{administradorBacking.asesor.paterno}"
+                                                 placeholder="PATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido paterno"/>
                                     <p:outputLabel value="Ingresa el apellido materno"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa el telefono"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:inputText value="#{administradorBacking.asesor.materno}"
+                                                 placeholder="MATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido materno"/>
+                                    <p:outputLabel value="Ingresa la especialidad"/>
+                                    <p:inputText value="#{administradorBacking.asesor.especialidad}"
+                                                 placeholder="ESPECIALIDAD"
+                                                 required="true"
+                                                 requiredMessage="Ingresa la especialidad"/>
                                     <p:outputLabel value="Ingresa el correo"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:inputText value="#{administradorBacking.asesor.correo}"
+                                                 validatorMessage="Ingresa un formato correcto de correo"
+                                                 placeholder="CORREO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa correo">
+                                        <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+                                    </p:inputText>
                                     <p:outputLabel value="Ingresa el password"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa nivel educativo"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="############## "/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa la materia"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:password value="#{administradorBacking.asesor.password}"
+                                                 placeholder="PASSWORD"
+                                                 required="true"
+                                                 requiredMessage="Ingresa password"/>
                                 </p:panelGrid>
+                                <h:commandButton value="Guardar"
+                                                 actionListener="#{administradorBacking.nuevoAsesor}"/>
                             </h:form>
+                            
+                            
                         </p:tab>
                         <p:tab title="Agregar otro administrador">
                             <h:form>
                                 <p:growl showDetail="true" sticky="true"/>
                                 <p:panelGrid columns="2">
-                                    <p:outputLabel value="Ingresa la matricula"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa el nombre"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa el apellido paterno"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa el apellido materno"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa el telefono"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
                                     <p:outputLabel value="Ingresa el correo"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:inputText value="#{administradorBacking.administrador.correo}"
+                                                 validatorMessage="Ingresa un formato correcto de correo"
+                                                 placeholder="CORREO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa correo">
+                                        <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+                                    </p:inputText>
                                     <p:outputLabel value="Ingresa el password"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa nivel educativo"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="############## "/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
-                                    <p:outputLabel value="Ingresa la materia"/>
-                                    <p:inputText value=""
-                                                 placeholder=""
-                                                 required=""
-                                                 requiredMessage=""/>
+                                    <p:password value="#{administradorBacking.administrador.password}"
+                                                 placeholder="PASSWORD"
+                                                 required="true"
+                                                 requiredMessage="Ingresa password"/>
+                                    <p:outputLabel value="Ingresa el nombre"/>
+                                    <p:inputText value="#{administradorBacking.administrador.nombre}"
+                                                 placeholder="NOMBRE"
+                                                 required="true"
+                                                 requiredMessage="Ingresa nombre"/>
+                                    <p:outputLabel value="Ingresa el apellido paterno"/>
+                                    <p:inputText value="#{administradorBacking.administrador.paterno}"
+                                                 placeholder="PATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido paterno"/>
+                                    <p:outputLabel value="Ingresa el apellido materno"/>
+                                    <p:inputText value="#{administradorBacking.administrador.materno}"
+                                                 placeholder="MATERNO"
+                                                 required="true"
+                                                 requiredMessage="Ingresa apellido materno"/>
                                 </p:panelGrid>
+                                <h:commandButton value="Guardar"
+                                                 actionListener="#{administradorBacking.nuevoAdministrador}"/>
                             </h:form>
                         </p:tab>
                     </p:accordionPanel>                
