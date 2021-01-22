@@ -125,13 +125,33 @@ public class CatalogoAlumnosBacking implements Serializable{
             init();
         }catch(Exception e){
             e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Alumno NO actualizado correctamente","Alumno NO actualizado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultarAlumnos();
+            consultarMaterias();
+            cerrarDialogo();
+            init();
         }
     }
     
     public void eliminar (Alumnos a){
-        alumnosFacade.remove(a);
-        consultarAlumnos();
-        consultarMaterias();
+//        alumnosFacade.remove(a);
+//        consultarAlumnos();
+//        consultarMaterias();
+        try{
+            alumnosFacade.remove(a);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alumno eliminado correctamente","Alumno eliminado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultarAlumnos();
+            consultarMaterias();
+        }catch(Exception e){
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alumno no se pudo eliminar","Alumno no se pudo eliminar");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultarAlumnos();
+            consultarMaterias();
+            init();
+        }
     }
     
 }

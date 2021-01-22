@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -19,6 +21,97 @@
 
             <ui:define name="content">
                 <h1>Citas</h1>
+                
+                <h3>Catalogo Citas</h3>
+                <h:form>
+                    <p:dataTable value="#{catalogoCitasBacking.listaCitas}" var="c" paginator="true" rows="2">
+                        <p:column headerText="Fecha"
+                                  filterBy="#{c.fecha}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{c.fecha}">
+                                <f:convertDateTime pattern="YYYY-MM-DD"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{c.hora}"/>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value="#{c.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Estatus">
+                            <h:outputText value="#{c.estatus}"/>
+                        </p:column>
+                        <p:column headerText="Asistenca">
+                            <h:outputText value="#{c.asistencia}"/>
+                        </p:column>
+                        <p:column headerText="Asesor">
+                            <h:outputText value="#{c.asesorId.nombre} #{c.asesorId.paterno} #{c.asesorId.materno}"/>
+                        </p:column>
+                        <p:column headerText="Alumno">
+                            <h:outputText value="#{c.alumnoId.nombre} #{c.alumnoId.paterno} #{c.alumnoId.materno}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{catalogoCitasBacking.seleccionarCita(c)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{catalogoCitasBacking.eliminar(c)}"/>
+                                           
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <p:growl sticky="true" showDetail="true"/>
+                    <p:dialog header="Editar citas"
+                              visible="#{catalogoCitasBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Fecha"/>
+                            <p:calendar value="#{catalogoCitasBacking.cita.fecha}"/>
+                            <p:outputLabel value="Hora"/>
+                            <p:inputText value="#{catalogoCitasBacking.cita.hora}"
+                                         placeholder="HH:MM"
+                                         required="true"
+                                         requiredMessage="Ingresa hora correcta"/>
+                            <p:outputLabel value="Descripcion"/>
+                            <p:inputText value="#{catalogoCitasBacking.cita.descripcion}"/>
+                            <p:outputLabel value="Estatus"/>
+                            <p:selectOneRadio value="#{catalogoCitasBacking.cita.estatus}"
+                                                      required="true"
+                                                      requiredMessage="Selecciona el estatus">
+                                        <f:selectItem itemLabel="Pendiente" itemValue="pendiente" />
+                                        <f:selectItem itemLabel="Activa" itemValue="activa" />
+                                        <f:selectItem itemLabel="Cancelada" itemValue="cancelada" />
+                                        <f:selectItem itemLabel="Finalizada" itemValue="finalizada" />
+                                    </p:selectOneRadio>
+                            <p:outputLabel value="Asistencia"/>
+                            <p:selectOneRadio value="#{catalogoCitasBacking.cita.asistencia}"
+                                                      required="true"
+                                                      requiredMessage="Selecciona la asistencia">
+                                        <f:selectItem itemLabel="Pendiente" itemValue="pendiente" />
+                                        <f:selectItem itemLabel="Asistio" itemValue="asistio" />
+                                        <f:selectItem itemLabel="No asistio" itemValue="no asistio" />
+                                    </p:selectOneRadio>
+                            <p:outputLabel value="Asesor"/>
+                            <p:selectOneMenu value="#{catalogoCitasBacking.asesor.id}">
+                                <f:selectItems value="#{catalogoCitasBacking.listaAsesores}" var="ase"
+                                               itemValue="#{ase.id}" itemLabel="#{ase.nombre} #{ase.paterno} #{ase.materno}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Alumno"/>
+                            <p:selectOneMenu value="#{catalogoCitasBacking.alumno.id}">
+                                <f:selectItems value="#{catalogoCitasBacking.listaAlumnos}" var="alu"
+                                               itemValue="#{alu.id}" itemLabel="#{alu.nombre} #{alu.paterno} #{alu.materno}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{catalogoCitasBacking.cerrarDialogo}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{catalogoCitasBacking.guardar}"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>

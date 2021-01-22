@@ -13,8 +13,10 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -78,8 +80,20 @@ public class CatalogoAsesoresBacking  implements Serializable{
     }
     
     public void eliminar(Asesores a){
-        asesoresFacade.remove(a);
-        consultar();
+        
+        try{
+            asesoresFacade.remove(a);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Asesor eliminado correctamente","Asesor eliminado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            init();
+        }catch(Exception e){
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Asesor NO eliminado correctamente","Asesor NO eliminado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            init();
+        }
     }
     
     public void cerrarDialogo(){
@@ -89,11 +103,18 @@ public class CatalogoAsesoresBacking  implements Serializable{
     public void guardar(){
         try{
             this.asesoresFacade.edit(asesor);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Asesor actualizado correctamente","Asesor actualizado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
             consultar();
             cerrarDialogo();
             init();
         }catch(Exception e){
             e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Asesor NO actualizado correctamente","Asesor NO actualizado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            cerrarDialogo();
+            init();
         }
     }
     

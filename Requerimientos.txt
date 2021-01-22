@@ -23,6 +23,7 @@ finalizada	(10)
 
 -Se tendrá un campo para asistencia a las sesiones
 (asistencia)
+pendiente   (9)
 asistió		(7)
 no asistió	(10)
 
