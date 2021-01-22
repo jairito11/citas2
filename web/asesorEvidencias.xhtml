@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -16,7 +18,69 @@
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h1>Evidencias</h1>
+                
+                <h3>Administración de evidencias</h3>
+                <h:form>
+                <h:commandLink value="Nueva Evidencia" action="#{asesorEvidenciasBacking.nuevo()}"/>
+                <p:dataTable value="#{asesorEvidenciasBacking.listaEvidencias}"
+                             var="e"
+                             paginator="true"
+                             rows="2">
+                    <p:column headerText="Nombre">
+                        <h:outputText value="#{e.nombre}"/>
+                    </p:column>
+                    <p:column headerText="Descripción">
+                        <h:outputText value="#{e.descripcion}"/>
+                    </p:column>
+                    <p:column headerText="Estatus">
+                        <h:outputText value="#{e.estatus}"/>
+                    </p:column>
+                    <p:column headerText="Alumno">
+                        <h:outputText value="#{e.alumnoId.nombre} #{e.alumnoId.paterno}"/>
+                    </p:column>
+                    <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{asesorEvidenciasBacking.seleccionarEvidencia(e)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{asesorEvidenciasBacking.eliminar(e)}"/>
+                        </p:column>
+                </p:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <p:growl sticky="true" showDetail="true"/>
+                    <p:dialog header="Evidencias"
+                              visible="#{asesorEvidenciasBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{asesorEvidenciasBacking.evidencia.nombre}"
+                                         required="true"
+                                         requiredMessage="Ingresa nombre"/>
+                            <p:outputLabel value="Descripcion"/>
+                            <p:inputText value="#{asesorEvidenciasBacking.evidencia.descripcion}"
+                                         required="true"
+                                         requiredMessage="Ingresa descripcion"/>
+                            <p:outputLabel value="Estatus"/>
+                            <p:inputText value="#{asesorEvidenciasBacking.evidencia.estatus}"
+                                         required="true"
+                                         requiredMessage="Ingresa estatus"/>
+                            <p:outputLabel value="Alumno"/>
+                            <p:selectOneMenu value="#{asesorEvidenciasBacking.alumno.id}">
+                                <f:selectItems value="#{login.asesor.materias.alumnosList}" var="alu"
+                                               itemValue="#{alu.id}" itemLabel="#{alu.nombre} #{alu.paterno} #{alu.materno}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{asesorEvidenciasBacking.cerrarDialogo()}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{asesorEvidenciasBacking.guardar()}"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>
