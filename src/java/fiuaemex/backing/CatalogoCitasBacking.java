@@ -178,6 +178,9 @@ public class CatalogoCitasBacking implements Serializable{
             e.printStackTrace();
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Cita NO eliminada correctamente","Cita NO eliminada correctamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();//////////////////////////////////////////////////
+            consultarAlumnos();
+            consultarAsesores(); 
         }
     }
     

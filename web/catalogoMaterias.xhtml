@@ -1,0 +1,84 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./templates/miTemplate.xhtml">
+
+            <ui:define name="left">
+                <p:panelGrid columns="1">
+                    <p:link outcome="indexAdministrador" value="Home"/>
+                    <p:link outcome="catalogoAsesores" value="Asesores"/>
+                    <p:link outcome="catalogoAlumnos" value="Alumnos"/>
+                    <p:link outcome="catalogoCitas" value="Citas"/>
+                    <p:link outcome="catalogoAdministradores" value="Administradores"/>
+                </p:panelGrid>
+            </ui:define>
+
+            <ui:define name="content">
+                <h1>Materias</h1>
+                
+                <h3>Catalogo Materias</h3>
+                <h:form>
+                    <p:dataTable value="#{catalogoMateriasBacking.listaMaterias}" var="m" paginator="true" rows="2">
+                        <p:column headerText="nombre">
+                            <h:outputText value="#{m.nombre}"/>
+                        </p:column>
+                        <p:column headerText="descripcion">
+                            <h:outputText value="#{m.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Asesor">
+                            <h:outputText value="#{m.asesorId.nombre} #{m.asesorId.paterno} #{m.asesorId.materno}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{catalogoMateriasBacking.seleccionarMateria(m)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{catalogoMateriasBacking.eliminar(m)}"/>
+                                           
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <p:growl sticky="true" showDetail="true"/>
+                    <p:dialog header="Editar Materias"
+                              visible="#{catalogoMateriasBacking.muestraDialogo}"
+                              closable="true"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{catalogoMateriasBacking.materia.nombre}"
+                                         placeholder="NOMBRE"
+                                         required="true"
+                                         requiredMessage="Ingresa nombre"/>
+                            <p:outputLabel value="Descripcion"/>
+                            <p:inputText value="#{catalogoMateriasBacking.materia.descripcion}"
+                                         placeholder="DESCRIPCION"
+                                         required="true"
+                                         requiredMessage="Ingresa descripcion"/>
+                            <p:outputLabel value="Asesor"/>
+                            <p:selectOneMenu value="#{catalogoMateriasBacking.asesor.id}">
+                                <f:selectItems value="#{catalogoMateriasBacking.listaAsesores}" var="ase"
+                                               itemValue="#{ase.id}" itemLabel="#{ase.nombre} #{ase.paterno} #{ase.materno}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{catalogoMateriasBacking.cerrarDialogo}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{catalogoMateriasBacking.guardar}"/>
+                    </p:dialog>                  
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
