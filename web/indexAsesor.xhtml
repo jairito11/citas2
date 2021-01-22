@@ -1,18 +1,90 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./templates/miTemplate.xhtml">
 
             <ui:define name="left">
-                asesor
+                <p:panelGrid columns="1">
+                    <p:link outcome="asesorCitas" value="Citas"/>
+                    <p:link outcome="asesorEvidencias" value="Evidencias"/>
+                    <p:link outcome="asesorReportes" value="Reportes"/>
+                </p:panelGrid>
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h1>Bienvenido</h1>
+                
+                <h3>Sus alumnos son:</h3>
+                <h:form>
+                    <h:commandLink value="Crear cita" action="#{asesorBacking.nuevo()}"/>
+                    <p:dataTable value="#{login.asesor.materias.alumnosList}"
+                                 var="a"
+                                 paginator="true"
+                                 rows="2">
+                        <p:column headerText="Matricula">
+                            <h:outputText value="#{a.matricula}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Paterno">
+                            <h:outputText value="#{a.paterno}"/>
+                        </p:column>
+                        <p:column headerText="Materno">
+                            <h:outputText value="#{a.materno}"/>
+                        </p:column>
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{a.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}"/>
+                        </p:column>
+                        <p:column headerText="Nivel Educativo">
+                            <h:outputText value="#{a.nivelEducativo}"/>
+                        </p:column>
+                        <p:column headerText="Avance">
+                            <h:outputText value="#{a.avance}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <p:growl sticky="true" showDetail="true"/>
+                    <p:dialog header="Crear cita"
+                              visible="#{asesorBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Fecha"/>
+                            <p:calendar value="#{asesorBacking.cita.fecha}"/>
+                            <p:outputLabel value="Hora"/>
+                            <p:inputText value="#{asesorBacking.cita.hora}"
+                                         placeholder="HH:MM"
+                                         required="true"
+                                         requiredMessage="Ingresa hora correcta"/>
+                            <p:outputLabel value="Descripcion"/>
+                            <p:inputText value="#{asesorBacking.cita.descripcion}"
+                                         required="true"
+                                         requiredMessage="Ingresa descripción"/>
+                            <p:outputLabel value="Alumno"/>
+                            <p:selectOneMenu value="#{asesorBacking.alumno.id}">
+                                <f:selectItems value="#{login.asesor.materias.alumnosList}" var="alu"
+                                               itemValue="#{alu.id}" itemLabel="#{alu.nombre} #{alu.paterno} #{alu.materno}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cancelar"
+                                         actionListener="#{asesorBacking.cerrarDialogo()}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{asesorBacking.guardar()}"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>
