@@ -2,7 +2,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
@@ -19,6 +21,121 @@
 
             <ui:define name="content">
                 <h1>Alumnos</h1>
+                
+                <h3>Catalogo Alumnos</h3>
+                
+                <h:form>
+                    <p:dataTable value="#{catalogoAlumnosBacking.listaAlumnos}" var="a" paginator="true" rows="2">
+                        <p:column headerText="Matricula"
+                                  filterBy="#{a.matricula}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{a.matricula}"/>
+                        </p:column>
+                        <p:column headerText="Nombre">
+                            <h:outputText value="#{a.nombre}"/>
+                        </p:column>
+                        <p:column headerText="Paterno">
+                            <h:outputText value="#{a.paterno}"/>
+                        </p:column>
+                        <p:column headerText="Materno">
+                            <h:outputText value="#{a.materno}"/>
+                        </p:column>
+                        <p:column headerText="Telefono">
+                            <h:outputText value="#{a.telefono}"/>
+                        </p:column>
+                        <p:column headerText="Correo">
+                            <h:outputText value="#{a.correo}"/>
+                        </p:column>
+                        <p:column headerText="Nivel Educativo">
+                            <h:outputText value="#{a.nivelEducativo}"/>
+                        </p:column>
+                        <p:column headerText="Avance">
+                            <h:outputText value="#{a.avance}"/>
+                        </p:column>
+                        <p:column headerText="Materia">
+                            <h:outputText value="#{a.materiaId.nombre}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Editar"
+                                           action="#{catalogoAlumnosBacking.seleccionarAlumno(a)}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Eliminar"
+                                           action="#{catalogoAlumnosBacking.eliminar(a)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+                
+                <h:form>
+                    <p:growl showDetail="true" sticky="true"/>
+                    <p:dialog header="Editar Alumnos"
+                              visible="#{catalogoAlumnosBacking.muestraDialogo}"
+                              closable="false"
+                              modal="true">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="Matricula"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.matricula}"
+                                         validatorMessage="La matricula debe ser de 5 digitos"
+                                         placeholder="MATRICULA"
+                                         required="true"
+                                         requiredMessage="Ingresa matricula">
+                                        <f:validateRegex pattern="[0-9]{5}"/>
+                                    </p:inputText>
+                            <p:outputLabel value="Nombre"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.nombre}"
+                                         placeholder="NOMBRE"
+                                         required="true"
+                                         requiredMessage="Ingresa nombre"/>
+                            <p:outputLabel value="Paterno"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.paterno}"
+                                         placeholder="PATERNO"
+                                         required="true"
+                                         requiredMessage="Ingresa apellido paterno"/>
+                            <p:outputLabel value="Materno"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.materno}"
+                                         placeholder="MATERNO"
+                                         required="true"
+                                         requiredMessage="Ingresa apellido materno"/>
+                            <p:outputLabel value="Telefono"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.telefono}"
+                                         placeholder="TELEFONO"
+                                         required="true"
+                                         requiredMessage="Ingresa telefono">
+                                        <f:validateRegex pattern="[0-9]{10}"/>
+                                    </p:inputText>
+                            <p:outputLabel value="Correo"/>
+                            <p:inputText value="#{catalogoAlumnosBacking.alumno.correo}"
+                                         validatorMessage="Ingresa un formato correcto de correo"
+                                         placeholder="CORREO"
+                                         required="true"
+                                         requiredMessage="Ingresa correo valido">
+                                <f:validateRegex pattern="[a-zA-Z]*@[a-z]{4}\.[a-z]{3}"/>
+                            </p:inputText>
+                            <p:outputLabel value="Password"/>
+                            <p:password value="#{catalogoAlumnosBacking.alumno.password}"
+                                         placeholder="PASSWORD"
+                                         required="true"
+                                         requiredMessage="Ingresa password"/>
+                            <p:outputLabel value="Nivel Educativo"/>
+                            <p:selectOneRadio value="#{catalogoAlumnosBacking.alumno.nivelEducativo}"
+                                                      required="true"
+                                                      requiredMessage="Selecciona el nivel educativo">
+                                        <f:selectItem itemLabel="Licenciatura" itemValue="licenciatura" />
+                                        <f:selectItem itemLabel="Maestria" itemValue="maestria" />
+                                        <f:selectItem itemLabel="Doctorado" itemValue="doctorado" />
+                                    </p:selectOneRadio>
+                            <p:outputLabel value="Ingresa la materia"/>
+                            <p:selectOneMenu value="#{catalogoAlumnosBacking.materia.id}" style="width: 45%;">
+                                <f:selectItems value="#{catalogoAlumnosBacking.listaMaterias}" var="mat"
+                                               itemValue="#{mat.id}" itemLabel="#{mat.nombre}"/>
+                                    </p:selectOneMenu>
+                        </p:panelGrid>
+                        <h:commandButton value="Cacncelar"
+                                         actionListener="#{catalogoAlumnosBacking.cerrarDialogo}"/>
+                        <h:commandButton value="Registrar"
+                                         actionListener="#{catalogoAlumnosBacking.guardar}"/>
+                    </p:dialog>
+                </h:form>
             </ui:define>
 
         </ui:composition>
