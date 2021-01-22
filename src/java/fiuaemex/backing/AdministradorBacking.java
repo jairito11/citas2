@@ -38,6 +38,8 @@ public class AdministradorBacking implements Serializable{
     private AsesoresFacadeLocal asesoresFacade;
     @EJB
     private AdministradoresFacadeLocal administradorFacade;
+    
+    private List<Asesores> listaAsesores;
             
     private List<Materias> listaMaterias;
     private Materias materia;
@@ -55,6 +57,10 @@ public class AdministradorBacking implements Serializable{
         listaMaterias = materiasFacade.findAll();
     }
     
+    public void consultarAsesores(){
+        listaAsesores = asesoresFacade.findAll();
+    }
+    
     @PostConstruct
     public void init(){
         materia = new Materias();
@@ -62,6 +68,16 @@ public class AdministradorBacking implements Serializable{
         asesor = new Asesores();
         administrador = new Administradores();
         consultar();
+        consultarAsesores();
+    }
+
+    public List<Asesores> getListaAsesores() {
+        consultarAsesores();
+        return listaAsesores;
+    }
+
+    public void setListaAsesores(List<Asesores> listaAsesores) {
+        this.listaAsesores = listaAsesores;
     }
 
     public Asesores getAsesor() {
@@ -113,9 +129,15 @@ public class AdministradorBacking implements Serializable{
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Alumno creado correctamente","Alumno creado correctamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             consultar();
+            consultarAsesores();
             init();
         }catch(Exception e){
             e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alumno NO creado correctamente","Alumno NO creado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            consultarAsesores();
+            init();
         }
     }
     
@@ -125,9 +147,15 @@ public class AdministradorBacking implements Serializable{
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Asesor creado correctamente","Asesor creado correctamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             consultar();
+            consultarAsesores();
             init();
         }catch(Exception e){
             e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Asesor NO creado correctamente","Asesor NO creado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            consultarAsesores();
+            init();
         }
     }
     
@@ -137,9 +165,35 @@ public class AdministradorBacking implements Serializable{
             FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Administrador creado correctamente","Administrador creado correctamente");
             FacesContext.getCurrentInstance().addMessage(null, msg);
             consultar();
+            consultarAsesores();
             init();
         }catch(Exception e){
             e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Administrador NO creado correctamente","Administrador NO creado correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            consultarAsesores();
+            init();
         }
+    }
+    
+    public void nuevaMateria(){
+        try{
+            this.materia.setAsesorId(asesor);
+            this.materiasFacade.create(materia);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO,"Materia creada correctamente","Materia creada correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            consultarAsesores();
+            init();            
+        }catch (Exception e){
+            e.printStackTrace();
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Materia NO creada correctamente","Materia NO creada correctamente");
+            FacesContext.getCurrentInstance().addMessage(null, msg);
+            consultar();
+            consultarAsesores();
+            init();
+        }
+        
     }
 }

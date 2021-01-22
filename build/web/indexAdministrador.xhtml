@@ -23,7 +23,7 @@
                 <h1>Administrador</h1>
                 
                 <h3>Agregar nuevos elementos</h3>
-                    <p:accordionPanel dynamic="true" cache="true" activeIndex="null">
+                    <p:accordionPanel dynamic="true" cache="true">
                         <p:tab title="Crear nuevo Alumno">
                             <h:form>
                                 <p:growl showDetail="true" sticky="true"/>
@@ -172,6 +172,36 @@
                                 </p:panelGrid>
                                 <h:commandButton value="Guardar"
                                                  actionListener="#{administradorBacking.nuevoAdministrador}"/>
+                            </h:form>
+                        </p:tab>
+                        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////7777
+                        <p:tab title="Crear nueva Materia">
+                            <h4>Un profesor solo puede tener una materia</h4>
+                            <h1>Asegurese de crear un asesor antes</h1>
+                            <h1>y que este no tenga materias asignadas</h1>
+                            <h:form>
+                                <p:growl showDetail="true" sticky="true"/>
+                                <p:panelGrid columns="2">
+                                    <p:outputLabel value="Ingresa el nombre"/>
+                                    <p:inputText value="#{administradorBacking.materia.nombre}"
+                                                 placeholder="NOMBRE"
+                                                 required="true"
+                                                 requiredMessage="Ingresa el nombre"/>
+                                    <p:outputLabel value="Ingresa la descripcion"/>
+                                    <p:inputText value="#{administradorBacking.materia.descripcion}"
+                                                 placeholder="DESCRIPCION"
+                                                 required="true"
+                                                 requiredMessage="Ingresa la descripcion"/>
+                                    <p:outputLabel value="Ingresa el asesor"/>
+                                    <p:selectOneMenu value="#{administradorBacking.asesor.id}" style="width: 45%;"
+                                                     required="true"
+                                                     requiredMessage="Selecciona asesor">
+                                        <f:selectItems value="#{administradorBacking.listaAsesores}" var="mat"
+                                                       itemValue="#{mat.id}" itemLabel="#{mat.nombre} #{mat.paterno}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                <h:commandButton value="Guardar"
+                                                 actionListener="#{administradorBacking.nuevaMateria}"/>
                             </h:form>
                         </p:tab>
                     </p:accordionPanel>                
