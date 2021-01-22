@@ -12,12 +12,14 @@ import fiuaemex.entities.Asesores;
 import fiuaemex.facade.AdministradoresFacadeLocal;
 import fiuaemex.facade.AlumnosFacadeLocal;
 import fiuaemex.facade.AsesoresFacadeLocal;
+import fiuaemex.util.SessionUtil;
 import java.io.Serializable;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -102,6 +104,8 @@ public class Login implements Serializable {
             case "administrador":
                 administrador = administradorFacade.consultarAdministrador(correo, password);
                 if (administrador != null) {
+                    HttpSession ses = SessionUtil.getSession();
+                    ses.setAttribute("username", administrador.getCorreo());
                     outcome = "indexAdministrador";
                 }else{
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Administrador no valido","Administrador no valido");
@@ -111,6 +115,8 @@ public class Login implements Serializable {
             case "asesor":
                 asesor = asesorFacade.consultarAsesor(correo, password);
                 if (asesor != null) {
+                    HttpSession ses = SessionUtil.getSession();
+                    ses.setAttribute("username", asesor.getCorreo());
                     outcome = "indexAsesor";
                 }else{
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Asesor no valido","Asesor no valido");
@@ -120,6 +126,8 @@ public class Login implements Serializable {
             case "alumno":
                 alumno = alumnoFacade.consultarAlumno(correo, password);
                 if (alumno != null) {
+                    HttpSession ses = SessionUtil.getSession();
+                    ses.setAttribute("username", alumno.getCorreo());
                     outcome = "indexAlumno";
                 }else{
                     FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Alumno no valido","Alumno no valido");
@@ -130,5 +138,11 @@ public class Login implements Serializable {
                 throw new AssertionError();
         }
     }    
+    
+    public String cerrarSesion(){
+        HttpSession ses = SessionUtil.getSession();
+        ses.invalidate();
+        return "index";
+    }
     
 }

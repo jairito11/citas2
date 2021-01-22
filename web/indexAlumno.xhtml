@@ -1,18 +1,66 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <body>
 
         <ui:composition template="./templates/miTemplate.xhtml">
 
             <ui:define name="left">
-                alumno
+                <p:panelGrid columns="1">
+                    <!--
+                    <p:link outcome="alumnoEvidencias" value="Evidencias"/>
+                    
+                    <p:link outcome="alumnoCambiarContraseña" value="Cambiar contraseña"/>
+                    -->
+                    <p:outputLabel value="Bienvenido"/>
+                </p:panelGrid>
             </ui:define>
 
             <ui:define name="content">
-                content
+                <h1>Bienvenido</h1>
+                
+                <h3>Sus citas son:</h3>
+                <h:form>
+                    <p:dataTable value="#{login.alumno.citasList}"
+                                 var="c"
+                                 paginator="true"
+                                 rows="2">
+                        <p:column headerText="Fecha"
+                                  filterBy="#{c.fecha}"
+                                  filterMatchMode="contains">
+                            <h:outputText value="#{c.fecha}">
+                                <f:convertDateTime pattern="YYYY-MM-DD"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column headerText="Hora">
+                            <h:outputText value="#{c.hora}"/>
+                        </p:column>
+                        <p:column headerText="Descripcion">
+                            <h:outputText value="#{c.descripcion}"/>
+                        </p:column>
+                        <p:column headerText="Estatus">
+                            <h:outputText value="#{c.estatus}"/>
+                        </p:column>
+                        <p:column headerText="Asistenca">
+                            <h:outputText value="#{c.asistencia}"/>
+                        </p:column>
+                        <p:column headerText="Asesor">
+                            <h:outputText value="#{c.asesorId.nombre} #{c.asesorId.paterno} #{c.asesorId.materno}"/>
+                        </p:column>
+                        <p:column headerText="Alumno">
+                            <h:outputText value="#{c.alumnoId.nombre} #{c.alumnoId.paterno} #{c.alumnoId.materno}"/>
+                        </p:column>
+                        <p:column>
+                            <h:commandLink value="Marcar Asistencia"
+                                           action="#{alumnoBacking.asistencia(c)}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
             </ui:define>
 
         </ui:composition>

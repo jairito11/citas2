@@ -19,6 +19,12 @@
             <h:outputText value="En sesión Administrador: #{login.administrador.correo}" rendered="#{login.administrador != null}"/>
             <h:outputText value="En sesión Asesor: #{login.asesor.correo}" rendered="#{login.asesor != null}"/>
             <h:outputText value="En sesión Alumno: #{login.alumno.correo}" rendered="#{login.alumno != null}"/>
+            <h:form>
+            <div>
+                <h:commandLink value="Cerrar Session"
+                               action="#{login.cerrarSesion}"/>
+            </div>                
+            </h:form>
         </div>
         <div>
             <div id="left">
